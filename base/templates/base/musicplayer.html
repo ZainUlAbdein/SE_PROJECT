@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Books Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="{% static 'styles/musicplayer.css' %}">
+  <base href="http://127.0.0.1:8000/">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<nav class="navigation">
+    <a href="#" class="logo ripple">Musikzz by Books Studio</a>
+    <form action="{% url 'add-song' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <ul>
+            <li class="ripple">
+                <i class="icon fas fa-music"></i> <span>Playing</span>
+            </li>
+            <li class="ripple active">
+                <i class="icon fas fa-stream"></i> <span>Play List</span>
+            </li>
+            <li class="ripple">
+                <label><i class="icon fas fa-book-medical" for="input_file1" onclick="uploadSong()"></i>
+                    <span>Add Songs</span></label>
+
+              
+                    <input  type="file" id="input_file1" name="song" accept="audio/*" required/>
+
+                <button style="background-color: darkslategray;
+                color: antiquewhite;
+                border-radius: 20px;
+                width: 100%;
+                height: 40px;
+                border: none;" type="submit">Upload song</button>
+
+                 
+    
+            </li>
+        </ul>
+    </form>    
+
+    <i class="closeButton fas fa-arrow-alt-circle-left"></i>
+</nav>
+
+<div class="pagination">
+    <div class="music-title">
+        <div class="image">
+            <img src="https://raw.githubusercontent.com/shu-vro/Musika/old-musika/resources/img/disk.png" alt="Music" />
+        </div>
+        <div class="title">
+            <h2>
+                <span></span>
+            </h2>
+            <span>Unknown Artist</span>
+        </div>
+    </div>
+    <div class="controls">
+        <div class="progress-container">
+            <input type="range" class="progress" min="0" max="100" value="0" />
+            <div class="value-of-range">
+                <div class="value">0</div>
+            </div>
+        </div>
+        <div class="main-controls">
+            <i class="ripple control-button prev fas fa-step-backward"></i>
+            <i onclick="play_puase()" class="ripple control-button play fas fa-play"></i>
+            <i class="ripple control-button next fas fa-step-forward"></i>
+        </div>
+    </div>
+</div>
+
+<div class="music-list on">
+    <h1>Songs:</h1>
+    <ul>
+        <li style="
+                        background: rgba(197, 197, 197, 0.281);
+                        backdrop-filter: blur(10px);
+                    ">
+            <a href="#" class="ripple"><span>Title</span><span></span><span>Uploaded at</span></a>
+        </li>
+        {% for song in all_songs %}
+        <li>
+            <a onclick="LoadMusicNew('media/{{ song.song_file }}')" class="ripple"><span>{{ song.song_file }}</span><span></span><span>{{ song.created_at }}</span></a>
+        </li>
+        {% endfor %}
+        
+    </ul>
+</div>
+<div class="AV-player">
+    <canvas></canvas>
+    <div class="more-controls">
+        <i class="ripple shuffle fas fa-random"></i>
+        <i class="ripple repeat fas fa-retweet"></i>
+        <i class="ripple volume fas fa-volume-up">
+            <div class="value-of-range"></div>
+            <input type="range" min="0" max="100" value="100" class="volume-range" />
+        </i>
+        <i class="ripple list-music fas fa-list-ul"></i>
+    </div>
+</div>
+<audio src="https://shu-vro.github.io/Audio-App---Musika/resources/audio/userScore.mp3"></audio>
+<!-- partial -->
+  <script  src="{% static 'js/newplayer.js' %}"></script>
+
+  <script>
+    function uploadSong() {
+        $("#input_file1").click();    
+    }
+    $("#input_file").on('change', function () {
+        console.log('abc');
+    })
+  </script>
+
+</body>
+</html>

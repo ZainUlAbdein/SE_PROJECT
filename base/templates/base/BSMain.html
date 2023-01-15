@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- <meta http-equiv="refresh" content="1"> -->
+    <title>BOOKS STUDIO | READ WITH BEATS</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles/BSMain.css' %}">
+    <script src="https://unpkg.com/@ungap/custom-elements-builtin"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <link
+      href="{% static 'assets/Books Studio Logo.svg' %}"
+      rel="shortcut icon"
+      type="image/x-icon"
+    />
+    <link
+      href="{% static 'assets/Books Studio Logo.svg' %}"
+      rel="apple-touch-icon"
+    />
+
+
+</head>
+<body  {% if page == 'books' %} onload="openNav1()" {% endif %} >
+    <div
+    data-collapse="medium"
+    data-animation="default"
+    data-duration="400"
+    data-easing="ease"
+    data-easing2="ease"
+    role="banner"
+    class="navbar w-nav">
+    <div class="w-container">
+        <nav role="navigation" class="nav-menu w-nav-menu">
+            <a onclick="openNav2();closeNav1();" aria-current="page" class="nav-link w-nav-link "
+              >My Books library</a>
+          </nav>
+            <a
+                href="{% url 'home' %}"
+                aria-current="page"
+                class="brand w-clearfix w-nav-brand w--current"
+                ><img style="height: 50px; width: 50px; margin-top: -10px;"
+                src="{% static 'assets/Books Studio Logo.svg' %}"
+                alt=""
+                class="stone-logo"/>
+                <div class="logo-text">BOOKS STUDIO</div></a>
+      <nav role="navigation" class="nav-menu w-nav-menu">
+          <a  onclick="openNav1();closeNav2();" aria-current="page" class="nav-link w-nav-link ">Open Books Panel</a>
+
+    
+      </nav>
+      <div  class="menu-button w-nav-button">
+        <div class="menu-icon w-icon-nav-menu"></div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <!-- BOOKS TAB -->
+  <div id="myNav1" class="overlay1">
+
+    <div class="overlay1-content">
+
+      <div class="body1">
+        <div class="wrapper1">
+          <div class="hidelogo1">
+            <a href="javascript:void(0)" class="closebtn1" onclick="closeNav1()">&times;</a>
+            <input style=" border-radius: 10px; margin-bottom: 15px;" type="text1" id="textone" class="field1 w-input1" placeholder="Search a book"/>
+              <button type="submit" style="border-radius: 10px; margin-bottom: 10px;" class="button beige footer" onclick="testVariable()">Search</button>
+          </div>
+        <iframe id="showskill" is="x-frame-bypass" src="http://www.pdfdrive.com/"></iframe>
+        </div>
+        </div>
+    </div>
+  </div>
+
+  <div id="myNav2" class="overlay1" style="background-color: #bf884d;">
+    <div class="overlay1-content" >
+      <a href="javascript:void(0)" class="closebtn1" onclick="closeNav2()">&times;</a>
+      <iframe src="{% url 'my-books' %}" style="background-color: #bf884d; border: none;">
+      </iframe>
+    </div></div>
+
+
+
+
+
+  <!-- MUSIC TAB -->
+  <div class="containerrr">
+    <div class="tabs">
+
+
+
+      <div class="tabby-tab">
+        <input type="radio" id="tab-1" name="tabby-tabs" checked onclick="tolocal()">
+        <label for="tab-1">SAVED SONGS</label>
+        <div class="tabby-content" >
+        <h4>Listen to your favourites from local playlist by adding it to the player</h4>
+        <iframe src="{% url 'Music' %}" frameborder="0" class="iframer2"></iframe>
+  
+
+        </div></div>
+
+
+<!-- ##################################################################################### -->
+      <div class="tabby-tab">
+        <input type="radio" id="tab-2" name="tabby-tabs" onclick="toyt()">
+        <label for="tab-2">FROM YOUTUBE</label>
+        <div class="tabby-content">
+        <h4>Listen from YouTube</h4>
+        <div class="section1">
+          <form id="yt-form" class="contact-form-column w-col w-col-8">
+              <p><input type="text" style="border-radius: 20px;" class="field w-input" id="keyword-input" placeholder="Enter keyword" required></p>
+              <p><input type="number" style="border-radius: 20px;" class="field w-input" id="maxresult-input" placeholder="how much bw 1 to 50" min="1" max="50" required></p>
+              <p>
+                  <select id="order-input" style="border-radius: 20px;" class="field w-input" required>
+                      <option value="">--SELECT ORDER--</option>
+                      <option value="date">Date</option>
+                      <option value="rating">Rating</option>
+                      <option value="relevance">Relevance</option>
+                      <option value="title">Title</option>
+                      <option value="viewCount" selected>View Count</option>
+                  </select>
+              </p>
+              <p>
+                  <button type="Submit" style="border-radius: 20px;" class="button form w-button">Submit</button>
+              </p>
+          </form>
+
+          <div class="ytholders" id="videoListContainer"></div>
+          <div class="ytholders2"  style="border:0px;" id="container"></div>
+      </div>
+
+      <div class="section12">
+          <div  class="ifr" id="ifr"></div>
+      </div>
+
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <audio src="https://shu-vro.github.io/Audio-App---Musika/resources/audio/userScore.mp3"></audio>
+
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="{% static 'js/BSMain.js' %}"></script>
+  <script src="{% static 'js/x-frame-bypass.js' %}" type="module"></script>
+
+
+
+</body>
+</html>

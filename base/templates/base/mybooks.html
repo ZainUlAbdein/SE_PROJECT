@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles/BSMain.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/mybooks.css' %}">
+    <script src="https://unpkg.com/@ungap/custom-elements-builtin"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body style="background-color: #bf884d;">
+ 
+    <!-- <div
+        data-collapse="medium"
+        data-animation="default"
+        data-duration="400"
+        data-easing="ease"
+        data-easing2="ease"
+        role="banner"
+        class="navbar w-nav">
+        <div class="w-container my-0">
+            <nav role="navigation" class="nav-menu w-nav-menu">
+                <a href="{% url 'my-books' %}" aria-current="page" class="nav-link w-nav-link "
+                >My Books library</a>
+            </nav>
+                <a
+                    href="{% url 'home' %}"
+                    aria-current="page"
+                    class="brand w-clearfix w-nav-brand w--current"
+                    ><img style="height: 50px; width: 50px; margin-top: -10px;"
+                    src="{% static 'assets/Books Studio Logo.svg' %}"
+                    alt=""
+                    class="stone-logo"/>
+                    <div class="logo-text">BOOKS STUDIO</div></a>
+        <nav role="navigation" class="nav-menu w-nav-menu">
+            <a  onclick="openNav1()" aria-current="page" class="nav-link w-nav-link ">Open Books Panel</a>
+
+        
+        </nav>
+        <div  class="menu-button w-nav-button">
+            <div class="menu-icon w-icon-nav-menu"></div>
+        </div>
+        </div>
+    </div> -->
+
+    <div class="container" style="padding: 50px;">
+        <div class="row">
+            <div class="col-sm-3 text-white">
+                <h4>Add book</h4>
+                <hr>
+
+                    <div>
+                        <form method="post" enctype="multipart/form-data" action="">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <p class="mb-2">Book name</p>
+                                <input type="text"
+                                  class="field w-input" name="name" id="" aria-describedby="helpId" placeholder="Book Name" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <p class="mb-2">Cover page</p>
+                                <input type="file" class="field w-input " name="cover" id="" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <p class="mb-2">PDF file</p>
+                                <input type="file" class="field w-input" name="book_file" id="" required>
+                            </div>
+
+                            <button type="submit" name="" id="" class="w-100 text-center mybtn nav-link w-nav-link">Upload book</button>
+                            
+                        </form>
+                    </div>
+              
+            </div>
+
+            <div  class="col-sm-9">
+                <div class="card text-left"  style="border-radius: 20px !important;">
+                  <div class="card-body w-100">
+                    <h4>Your book library</h4>
+                    <hr>
+
+                    {% if not all_books %}                            
+                        <div class="text-center w-100">
+                            <h5 class="my-5 text-secondary">No book uploaded</h5>
+                        </div>
+                    {% endif %}
+
+
+                    <div class="row" style="height: 500px; overflow-y: auto;">
+                        {% for book in all_books %}
+                            <div class="col-sm-4 mb-4">
+                                <div class="card text-left w-100 border-0">
+                                    <a href="{{ book.book_file.url }}" class="w-100" target="_blank">
+                                        <img src="{{ book.cover.url }}" style="height: 250px; border-radius: 10px; border: solid 2px rgb(224, 224, 224);" class="w-100" alt="">
+                                    </a>
+                                    <div class="card-body p-0 py-2">
+                                    <!-- <h4 class="card-title">Title</h4> -->
+                                    <small>{{ book.created_at }}</small>
+                                    <p class="card-text mt-2">{{ book.name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                  </div>
+                </div>
+                
+
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+</html>
